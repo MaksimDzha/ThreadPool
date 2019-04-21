@@ -14,7 +14,7 @@ import java.util.concurrent.Executor;
 public class ScalableThreadPool implements Executor {
     private int minThreads = 1, maxThreads = 4; //Значения по-умолчанию
     private boolean boost = false;
-    private TaskWorker[] workers = new TaskWorker[maxThreads]; //Массив "рабочих объектов", запускающих задания из очереди workQueue
+    private TaskWorker[] workers = new TaskWorker[maxThreads]; //Массив внутренних "рабочих объектов", запускающих задания из очереди workQueue
     private Thread[] threads = new Thread[maxThreads]; //Массив используемых потоков
     private final Queue<Runnable> workQueue = new ConcurrentLinkedQueue<>(); //Очередь для заданий
     private boolean isRunning = true, isStarting = false;
@@ -110,7 +110,7 @@ public class ScalableThreadPool implements Executor {
     }
 
     /**
-     * Деактивация дополнитльных потоков
+     * Деактивация дополнительных потоков
      */
     private void boostOff() {
         if (boost) {
