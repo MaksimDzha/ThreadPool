@@ -17,7 +17,8 @@ public class ScalableThreadPool implements Executor {
     private TaskWorker[] workers = new TaskWorker[maxThreads]; //Массив внутренних "рабочих объектов", запускающих задания из очереди workQueue
     private Thread[] threads = new Thread[maxThreads]; //Массив используемых потоков
     private final Queue<Runnable> workQueue = new ConcurrentLinkedQueue<>(); //Очередь для заданий
-    private boolean isRunning = true, isStarting = false;
+    private boolean isRunning = true;
+    private boolean isStarting = false;
 
     public ScalableThreadPool(){
         System.out.println("Используются значения по-умолчанию.");
@@ -56,6 +57,7 @@ public class ScalableThreadPool implements Executor {
     @Override
     public void execute(Runnable command) {
         if (!isStarting)
+            System.out.println("Автозапуск потоков...");
             start(); //Автозапуск, если забыли "стартануть"
         if (isRunning) {
             workQueue.offer(command);

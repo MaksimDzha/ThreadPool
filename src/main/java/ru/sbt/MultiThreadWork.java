@@ -8,9 +8,9 @@ import static java.lang.String.format;
 
 public class MultiThreadWork {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        ScalableThreadPool threadPool = new ScalableThreadPool();
+        ScalableThreadPool threadPool = new ScalableThreadPool(2,4);
 //        FixedThreadPool threadPool = new FixedThreadPool(4);
-//        threadPool.start();
+        threadPool.start();
         TimeUnit.SECONDS.sleep(1);
         System.out.println("Начинаем вычисления");
         Compute compute = new Compute();
@@ -18,10 +18,10 @@ public class MultiThreadWork {
         long start = System.nanoTime();
 
         List<Future<Double>> futures = new ArrayList<>();
-//        System.out.println("ThreadPool is boosted? " + threadPool.isBoost());
+        System.out.println("ThreadPool is boosted? " + threadPool.isBoost());
 //        System.out.println("ThreadPool is running? " + threadPool.isRunning());
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 200; i++) {
             final int j = i;
             futures.add(
                     CompletableFuture.supplyAsync(
@@ -29,7 +29,7 @@ public class MultiThreadWork {
                             threadPool
                     ));
         }
-//        System.out.println("ThreadPool is boosted? " + threadPool.isBoost());
+        System.out.println("ThreadPool is boosted? " + threadPool.isBoost());
 //        System.out.println("ThreadPool is running? " + threadPool.isRunning());
 
 

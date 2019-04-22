@@ -10,7 +10,7 @@ public class SingleThreadWork {
         long start = System.nanoTime();
 
         double value = 0;
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 200; i++) {
             value += compute.doWork(i);
         }
 
